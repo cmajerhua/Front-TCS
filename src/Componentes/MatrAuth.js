@@ -11,7 +11,7 @@ class MatrAuth extends React.Component {
 
         super(props)
         this.state = {
-            datosAmA:[],
+            datosAmA: [],
         }
         this.datosAmA = '';
     }
@@ -19,7 +19,7 @@ class MatrAuth extends React.Component {
         browserHistory.push('/');
         e.preventDefault();
     }
-    
+
     componentDidMount() {
         let supuestoCodigo = 11207052;
         fetch(CONFIG + '/AlumnoMatriculaAutorizacion/listar/' + supuestoCodigo)
@@ -52,10 +52,10 @@ class MatrAuth extends React.Component {
                                 </div>
                                 <b>Codigo:</b>
                                 <div></div>
-                                <div className="negro"> aca va el codigo </div>
+                                <div className="negro"> 15207043 </div>
                                 <b>Nombres:</b>
                                 <div></div>
-                                <div className="negro"> aca va el nombre </div>
+                                <div className="negro"> ENRIQUE GUSTAVO ROJAS KUDO </div>
                             </div>
                         </div>
                     </div>
@@ -93,9 +93,9 @@ class MatrAuth extends React.Component {
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td className="td">que</td>
-                                            <td className="td">sera</td>
-                                            <td className="td">esto!?</td>
+                                            <td className="td">GTI</td>
+                                            <td className="td">GIC</td>
+                                            <td className="td">GIC</td>
 
                                         </tr>
                                     </tbody>
@@ -124,26 +124,82 @@ class MatrAuth extends React.Component {
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td className="td">que</td>
-                                    <td className="td">sera</td>
-                                    <td className="td">esto!?</td>
-                                    <td className="td">que</td>
-                                    <td className="td">sera</td>
-                                    <td className="td">esto!?</td>
-                                    <td className="td">que</td>
-                                    <td className="td">sera</td>
-                                    <td className="td">esto!?</td>
+                                    <td> 1 </td>
+                                    <td> Operación1 </td>
+                                    <td>05/05/2018 </td>
+                                    <td> C1 </td>
+                                    <td>05/05/2018 </td>
+                                    <td> S/. 1000 </td>
+                                    <td> S/. 2000 </td>
+                                    <td>05/05/2018 </td>
+                                    <td>Pendiente </td>
+
                                 </tr>
                                 <tr>
-                                    <td className="td">que</td>
-                                    <td className="td">sera</td>
-                                    <td className="td">esto!?</td>
-                                    <td className="td">que</td>
-                                    <td className="td">sera</td>
-                                    <td className="td">esto!?</td>
-                                    <td className="td">que</td>
-                                    <td className="td">sera</td>
-                                    <td className="td">esto!?</td>
+                                    <td> 2 </td>
+                                    <td> Operación2 </td>
+                                    <td>05/05/2018 </td>
+                                    <td> C2 </td>
+                                    <td>05/04/2018 </td>
+                                    <td> S/. 2000 </td>
+                                    <td> S/. 2000 </td>
+                                    <td>01/05/2018 </td>
+                                    <td>Pendiente </td>
+                                </tr>
+                                <tr>
+                                    <td> 3 </td>
+                                    <td> Operación3 </td>
+                                    <td>14/04/2018 </td>
+                                    <td> C3 </td>
+                                    <td>05/10/2018 </td>
+                                    <td> S/. 2000 </td>
+                                    <td> S/. 3000 </td>
+                                    <td>01/05/2018 </td>
+                                    <td>Pendiente </td>
+                                </tr>
+                                <tr>
+                                    <td> 4 </td>
+                                    <td> Operación4 </td>
+                                    <td>14/04/2018 </td>
+                                    <td> C4 </td>
+                                    <td>05/10/2018 </td>
+                                    <td> S/. 1000 </td>
+                                    <td> S/. 3000 </td>
+                                    <td>11/12/2018 </td>
+                                    <td>Pendiente </td>
+                                </tr>
+                                <tr>
+                                    <td> 5 </td>
+                                    <td> Operación5 </td>
+                                    <td>04/05/2018 </td>
+                                    <td> C4 </td>
+                                    <td>02/06/2018 </td>
+                                    <td> S/. 1000 </td>
+                                    <td> S/. 3000 </td>
+                                    <td>11/10/2018 </td>
+                                    <td>Pendiente </td>
+                                </tr>
+                                <tr>
+                                    <td> 6 </td>
+                                    <td> Operación6 </td>
+                                    <td>14/05/2018 </td>
+                                    <td> C4 </td>
+                                    <td>22/06/2018 </td>
+                                    <td> S/. 4000 </td>
+                                    <td> S/. 1000 </td>
+                                    <td>16/07/2018 </td>
+                                    <td>Pendiente </td>
+                                </tr>
+                                <tr>
+                                    <td> 7 </td>
+                                    <td> Operación7 </td>
+                                    <td>24/06/2018 </td>
+                                    <td> C4 </td>
+                                    <td>28/06/2018 </td>
+                                    <td> S/. 1000 </td>
+                                    <td> S/. 2000 </td>
+                                    <td>07/08/2018 </td>
+                                    <td>Pendiente </td>
                                 </tr>
                             </tbody>
                         </table>
