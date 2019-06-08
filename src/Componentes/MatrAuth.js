@@ -11,6 +11,7 @@ class MatrAuth extends React.Component {
 
         super(props)
         this.state = {
+            codigo:this.props.params.codigoAlumno,
             datosAmA: [],
             cab: [],
         }
@@ -23,9 +24,7 @@ class MatrAuth extends React.Component {
     }
 
     componentDidMount() {
-        //deberia hacerse un controlador que te permita ingresar codigoAlumno
-        let supuestoCodigo = 17207146;
-        fetch(CONFIG + '/matriculacab/estado/listar')
+        fetch(CONFIG + '/matriculacab/buscar/' + this.state.codigo)
             .then((response) => {
                 return response.json()
             }).then((cab) => {
@@ -39,7 +38,7 @@ class MatrAuth extends React.Component {
             .catch(error => {
                 console.error(error)
             });
-        fetch(CONFIG + 'alumnomatriculaautorizacion/todos')
+        fetch(CONFIG + 'alumnomatriculaautorizacion/buscar/' + this.state.codigo)
             .then((response) => {
                 return response.json()
             }).then((datos) => {
@@ -56,7 +55,7 @@ class MatrAuth extends React.Component {
 
     }
     render() {
-        const datos = this.state.datosAmA.map((datoAmA, i) => {
+        /*const datos = this.state.datosAmA.map((datoAmA, i) => {
             return (
                 <tr>
                     <td> {datoAmA.n_autorizacion} </td>
@@ -71,7 +70,7 @@ class MatrAuth extends React.Component {
 
                 </tr>
             )
-        })
+        })*/
         return (
             <div>
                 <h3>Estado de matricula por autorizacion<ul id="nav-mobile" class="right  hide-on-med-and-down"><li><a class="seleccionar" onClick={this.Regresar.bind(this)}>Regresar<i class="material-icons right">reply</i></a></li></ul></h3>
@@ -85,10 +84,10 @@ class MatrAuth extends React.Component {
                                 </div>
                                 <b>Codigo:</b>
                                 <div></div>
-                                <div className="negro"> 15207043 </div>
+                                <div className="negro"> {this.state.cab.cod_alumno} </div>
                                 <b>Nombres:</b>
                                 <div></div>
-                                <div className="negro"> ENRIQUE GUSTAVO ROJAS KUDO </div>
+                                <div className="negro"> {this.state.datosAmA.usuario_emision}</div>
                             </div>
                         </div>
                     </div>
@@ -99,17 +98,17 @@ class MatrAuth extends React.Component {
                                     <thead>
                                         <tr>
                                             <th className="th">SEMESTRE</th>
-                                            <th className="th">N° CREDITOS</th>
+                                            <th className="th">CICLO</th>
                                             <th className="th">N° REPITENCIAS</th>
                                             <th className="th">IMPORTE</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td className="td">2019-1</td>
-                                            <td className="td">24</td>
-                                            <td className="td">0</td>
-                                            <td className="td">S/. 2000.00</td>
+                                            <td className="td">{this.state.cab.semestre}</td>
+                                            <td className="td">{this.state.cab.ciclo}</td>
+                                            <td className="td">no especificado</td>
+                                            <td className="td">no especificado</td>
 
                                         </tr>
                                     </tbody>
@@ -156,7 +155,15 @@ class MatrAuth extends React.Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                {datos}
+                                <td className="td"> {this.state.datosAmA.n_autorizacion} </td>
+                                <td className="td"> no especificado </td>
+                                <td className="td"> {this.state.datosAmA.fecha_emision} </td>
+                                <td className="td">S/. {this.state.datosAmA.saldo} </td>
+                                <td className="td">no especificado </td>
+                                <td className="td">S/. {this.state.datosAmA.importe} </td>
+                                <td className="td">S/. {this.state.datosAmA.amortizacion} </td>
+                                <td className="td">{this.state.datosAmA.fecha_vencimieto} </td>
+                                <td className="td">{this.state.datosAmA.id_autorizacion_estado} </td>
                             </tbody>
                         </table>
                     </div>
