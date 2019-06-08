@@ -12,7 +12,9 @@ class MatrAuth extends React.Component {
         super(props)
         this.state = {
             datosAmA: [],
+            cab: [],
         }
+        this.cab = '';
         this.datosAmA = '';
     }
     Regresar(e) {
@@ -21,24 +23,55 @@ class MatrAuth extends React.Component {
     }
 
     componentDidMount() {
-        let supuestoCodigo = 11207052;
-        fetch(CONFIG + '/AlumnoMatriculaAutorizacion/listar/' + supuestoCodigo)
+        //deberia hacerse un controlador que te permita ingresar codigoAlumno
+        let supuestoCodigo = 17207146;
+        fetch(CONFIG + '/matriculacab/estado/listar')
+            .then((response) => {
+                return response.json()
+            }).then((cab) => {
+
+
+                console.log("datos de cabecera");
+                console.log(cab);
+                this.setState({ cab: cab })
+
+            })
+            .catch(error => {
+                console.error(error)
+            });
+        fetch(CONFIG + 'alumnomatriculaautorizacion/todos')
             .then((response) => {
                 return response.json()
             }).then((datos) => {
 
 
-                console.log("datos");
+                console.log("datos de alumno matricula autorizacion");
                 console.log(datos);
                 this.setState({ datosAmA: datos })
 
             })
             .catch(error => {
                 console.error(error)
-            });
+            })
+
     }
     render() {
+        const datos = this.state.datosAmA.map((datoAmA, i) => {
+            return (
+                <tr>
+                    <td> {datoAmA.n_autorizacion} </td>
+                    <td> {datoAmA.cod_alumno} </td>
+                    <td> {datoAmA.fecha_emision} </td>
+                    <td>{datoAmA.saldo} </td>
+                    <td>{datoAmA.id_rec} </td>
+                    <td>{datoAmA.importe} </td>
+                    <td>{datoAmA.amortizacion} </td>
+                    <td>{datoAmA.fecha_vencimieto} </td>
+                    <td>{datoAmA.id_autorizacion_estado} </td>
 
+                </tr>
+            )
+        })
         return (
             <div>
                 <h3>Estado de matricula por autorizacion<ul id="nav-mobile" class="right  hide-on-med-and-down"><li><a class="seleccionar" onClick={this.Regresar.bind(this)}>Regresar<i class="material-icons right">reply</i></a></li></ul></h3>
@@ -123,84 +156,7 @@ class MatrAuth extends React.Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td> 1 </td>
-                                    <td> Operación1 </td>
-                                    <td>05/05/2018 </td>
-                                    <td> C1 </td>
-                                    <td>05/05/2018 </td>
-                                    <td> S/. 1000 </td>
-                                    <td> S/. 2000 </td>
-                                    <td>05/05/2018 </td>
-                                    <td>Pendiente </td>
-
-                                </tr>
-                                <tr>
-                                    <td> 2 </td>
-                                    <td> Operación2 </td>
-                                    <td>05/05/2018 </td>
-                                    <td> C2 </td>
-                                    <td>05/04/2018 </td>
-                                    <td> S/. 2000 </td>
-                                    <td> S/. 2000 </td>
-                                    <td>01/05/2018 </td>
-                                    <td>Pendiente </td>
-                                </tr>
-                                <tr>
-                                    <td> 3 </td>
-                                    <td> Operación3 </td>
-                                    <td>14/04/2018 </td>
-                                    <td> C3 </td>
-                                    <td>05/10/2018 </td>
-                                    <td> S/. 2000 </td>
-                                    <td> S/. 3000 </td>
-                                    <td>01/05/2018 </td>
-                                    <td>Pendiente </td>
-                                </tr>
-                                <tr>
-                                    <td> 4 </td>
-                                    <td> Operación4 </td>
-                                    <td>14/04/2018 </td>
-                                    <td> C4 </td>
-                                    <td>05/10/2018 </td>
-                                    <td> S/. 1000 </td>
-                                    <td> S/. 3000 </td>
-                                    <td>11/12/2018 </td>
-                                    <td>Pendiente </td>
-                                </tr>
-                                <tr>
-                                    <td> 5 </td>
-                                    <td> Operación5 </td>
-                                    <td>04/05/2018 </td>
-                                    <td> C4 </td>
-                                    <td>02/06/2018 </td>
-                                    <td> S/. 1000 </td>
-                                    <td> S/. 3000 </td>
-                                    <td>11/10/2018 </td>
-                                    <td>Pendiente </td>
-                                </tr>
-                                <tr>
-                                    <td> 6 </td>
-                                    <td> Operación6 </td>
-                                    <td>14/05/2018 </td>
-                                    <td> C4 </td>
-                                    <td>22/06/2018 </td>
-                                    <td> S/. 4000 </td>
-                                    <td> S/. 1000 </td>
-                                    <td>16/07/2018 </td>
-                                    <td>Pendiente </td>
-                                </tr>
-                                <tr>
-                                    <td> 7 </td>
-                                    <td> Operación7 </td>
-                                    <td>24/06/2018 </td>
-                                    <td> C4 </td>
-                                    <td>28/06/2018 </td>
-                                    <td> S/. 1000 </td>
-                                    <td> S/. 2000 </td>
-                                    <td>07/08/2018 </td>
-                                    <td>Pendiente </td>
-                                </tr>
+                                {datos}
                             </tbody>
                         </table>
                     </div>
