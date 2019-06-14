@@ -11,7 +11,7 @@ class MatrAuth extends React.Component {
 
         super(props)
         this.state = {
-            codigo:this.props.params.codigoAlumno,
+            codigo: this.props.params.codigoAlumno,
             datosAmA: [],
             cab: [],
         }
@@ -152,18 +152,26 @@ class MatrAuth extends React.Component {
                                     <th className="th">AMORTIZACION</th>
                                     <th className="th">FECHA DE VENCIMIENTO</th>
                                     <th className="th">CONDICION</th>
+                                    <th className="th">EDITAR</th>
                                 </tr>
                             </thead>
                             <tbody>
+
                                 <td className="td"> {this.state.datosAmA.n_autorizacion} </td>
                                 <td className="td"> no especificado </td>
                                 <td className="td"> {this.state.datosAmA.fecha_emision} </td>
                                 <td className="td">S/. {this.state.datosAmA.saldo} </td>
                                 <td className="td">no especificado </td>
                                 <td className="td">S/. {this.state.datosAmA.importe} </td>
-                                <td className="td">S/. {this.state.datosAmA.amortizacion} </td>
-                                <td className="td">{this.state.datosAmA.fecha_vencimieto} </td>
+
+                                    <div class="input-field">
+                                        <input id="input_text" type="text" className="center-align" value={this.state.datosAmA.amortizacion} ></input>
+                                        <label for="input_text">S/.</label>
+                                    </div>
+
+                                <td className="td"><input className="center-align" type="text" disabled value={this.state.datosAmA.fecha_vencimieto}></input></td>
                                 <td className="td">{this.state.datosAmA.id_autorizacion_estado} </td>
+                                <td className="td"><a className="waves-effect waves-light btn"><i className="large material-icons center grey-text text-lighten-5">edit</i></a></td>
                             </tbody>
                         </table>
                     </div>
