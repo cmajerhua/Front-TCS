@@ -14,9 +14,11 @@ class MatrAuth extends React.Component {
             codigo: this.props.params.codigoAlumno,
             datosAmA: [],
             cab: [],
+            alumno:[],
         }
         this.cab = '';
         this.datosAmA = '';
+        this.alumno='';
     }
     Regresar(e) {
         browserHistory.push('/');
@@ -51,26 +53,41 @@ class MatrAuth extends React.Component {
             })
             .catch(error => {
                 console.error(error)
+            });
+            fetch(CONFIG + 'alumnoprograma/buscarc/' + this.state.codigo)
+            .then((response) => {
+                return response.json()
+            }).then((alu) => {
+
+
+                console.log("datos de alumno");
+                console.log(alu);
+                this.setState({ alumno: alu })
+
             })
+            .catch(error => {
+                console.error(error)
+            });
 
     }
     render() {
-        /*const datos = this.state.datosAmA.map((datoAmA, i) => {
+        const datos = this.state.datosAmA.map((datoAmA, i) => {
             return (
-                <tr>
-                    <td> {datoAmA.n_autorizacion} </td>
-                    <td> {datoAmA.cod_alumno} </td>
-                    <td> {datoAmA.fecha_emision} </td>
-                    <td>{datoAmA.saldo} </td>
-                    <td>{datoAmA.id_rec} </td>
-                    <td>{datoAmA.importe} </td>
-                    <td>{datoAmA.amortizacion} </td>
-                    <td>{datoAmA.fecha_vencimieto} </td>
-                    <td>{datoAmA.id_autorizacion_estado} </td>
-
+                <tr key={i}>
+                    <td className="td">{i}</td>
+                    <td className="td"> {datoAmA.n_autorizacion} </td>
+                    <td className="td"> {datoAmA.fecha_emision} </td>
+                    <td className="td"><input className="center-align" type="text" disabled value="sin especificar"></input></td>
+                    <td className="td"><input className="center-align" type="text" disabled value={datoAmA.importe}></input></td>
+                    <td className="td"><input className="center-align" type="text" disabled value={datoAmA.penalidad}></input></td>
+                    <td className="td"><input className="center-align" type="text" disabled value={datoAmA.amortizacion}></input></td>
+                    <td className="td"><input className="center-align" type="text" disabled value={datoAmA.saldo}></input></td>
+                    <td className="td"><input className="center-align" type="text" disabled value={datoAmA.fecha_vencimieto}></input></td>
+                    <td className="td">{datoAmA.autorizacion_estado} </td>
+                    <td className="td"><a className="waves-effect waves-light btn"><i className="large material-icons center grey-text text-lighten-5">edit</i></a></td>
                 </tr>
             )
-        })*/
+        })
         return (
             <div>
                 <h3>Estado de matricula por autorizacion<ul id="nav-mobile" class="right  hide-on-med-and-down"><li><a class="seleccionar" onClick={this.Regresar.bind(this)}>Regresar<i class="material-icons right">reply</i></a></li></ul></h3>
@@ -84,10 +101,10 @@ class MatrAuth extends React.Component {
                                 </div>
                                 <b>Codigo:</b>
                                 <div></div>
-                                <div className="negro"> {this.state.cab.cod_alumno} </div>
+                                <div className="negro"> {this.state.alumno.codAlumno} </div>
                                 <b>Nombres:</b>
                                 <div></div>
-                                <div className="negro"> {this.state.datosAmA.usuario_emision}</div>
+                                <div className="negro">{this.state.alumno.nomAlumno} {this.state.alumno.apePaterno} {this.state.alumno.apeMaterno}</div>
                             </div>
                         </div>
                     </div>
@@ -145,33 +162,20 @@ class MatrAuth extends React.Component {
                                 <tr>
                                     <th className="th">N°</th>
                                     <th className="th">OPERACION</th>
-                                    <th className="th ancho">FECHA DE COMPROBANTE</th>
-                                    <th className="th">C</th>
+                                    <th className="th ancho">FECHA DE EMISION</th>
+                                    
                                     <th className="th">N° COMPROBANTE</th>
                                     <th className="th">IMPORTE</th>
                                     <th className="th">AMORTIZACION</th>
+                                    <th className="th">PENALIDAD</th>
+                                    <th className="th">SALDO</th>
                                     <th className="th">FECHA DE VENCIMIENTO</th>
                                     <th className="th">CONDICION</th>
                                     <th className="th">EDITAR</th>
                                 </tr>
                             </thead>
                             <tbody>
-
-                                <td className="td"> {this.state.datosAmA.n_autorizacion} </td>
-                                <td className="td"> no especificado </td>
-                                <td className="td"> {this.state.datosAmA.fecha_emision} </td>
-                                <td className="td">S/. {this.state.datosAmA.saldo} </td>
-                                <td className="td">no especificado </td>
-                                <td className="td">S/. {this.state.datosAmA.importe} </td>
-
-                                    <div class="input-field">
-                                        <input id="input_text" type="text" className="center-align" value={this.state.datosAmA.amortizacion} ></input>
-                                        <label for="input_text">S/.</label>
-                                    </div>
-
-                                <td className="td"><input className="center-align" type="text" disabled value={this.state.datosAmA.fecha_vencimieto}></input></td>
-                                <td className="td">{this.state.datosAmA.id_autorizacion_estado} </td>
-                                <td className="td"><a className="waves-effect waves-light btn"><i className="large material-icons center grey-text text-lighten-5">edit</i></a></td>
+                                {datos}
                             </tbody>
                         </table>
                     </div>
