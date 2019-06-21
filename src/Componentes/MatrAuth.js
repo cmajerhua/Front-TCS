@@ -4,7 +4,7 @@ import swal from 'sweetalert';
 import CONFIG from '../Configuracion/Config'
 import Select from 'react-select';
 import { browserHistory } from 'react-router-3';
-
+import AuthRow from './AuthRow';
 class MatrAuth extends React.Component {
 
     constructor(props) {
@@ -20,7 +20,7 @@ class MatrAuth extends React.Component {
         this.cab = '';
         this.datosAmA = '';
         this.alumno='';
-        this.xd = this.xd.bind(this);
+        
     }
     Regresar(e) {
         browserHistory.push('/');
@@ -73,28 +73,13 @@ class MatrAuth extends React.Component {
 
     }
 
-    xd(){
-        this.setState({
-            deshabilitar:false
-        })
-        console.log("xddddddddddddddddddddddddd");
-    }
+    
     render() {
         const datos = this.state.datosAmA.map((datoAmA, i) => {
             return (
-                <tr key={i}>
-                    <td className="td">{i}</td>
-                    <td className="td"> {datoAmA.n_autorizacion} </td>
-                    <td className="td"> {datoAmA.fecha_emision} </td>
-                    <td className="td"><input className="center-align" type="text" disabled={this.state.deshabilitar} placeholder="sin especificar" ></input></td>
-                    <td className="td"><input className="center-align" type="text" disabled={this.state.deshabilitar} placeholder={datoAmA.importe}></input></td>
-                    <td className="td"><input className="center-align" type="text" disabled={this.state.deshabilitar} placeholder={datoAmA.penalidad}></input></td>
-                    <td className="td"><input className="center-align" type="text" disabled={this.state.deshabilitar} placeholder={datoAmA.amortizacion}></input></td>
-                    <td className="td"><input className="center-align" type="text" disabled={this.state.deshabilitar} placeholder={datoAmA.saldo}></input></td>
-                    <td className="td"><input className="center-align" type="text" disabled={this.state.deshabilitar} placeholder={datoAmA.fecha_vencimieto}/></td>
-                    <td className="td"><input className="center-align" type="text" disabled={this.state.deshabilitar} placeholder={datoAmA.autorizacion_estado}></input></td>
-                    <td className="td"><a onClick={this.xd} className="waves-effect waves-light btn"><i className="large material-icons center grey-text text-lighten-5">edit</i></a></td>
-                </tr>
+                <AuthRow importe={datoAmA.importe} n_autorizacion={datoAmA.n_autorizacion} fecha_emision={datoAmA.fecha_emision}
+                penalidad={datoAmA.penalidad} amortizacion={datoAmA.amortizacion} saldo={datoAmA.saldo} fecha_vencimieto={datoAmA.fecha_vencimieto}
+                autorizacion_estado={datoAmA.autorizacion_estado}/>
             )
         })
         return (

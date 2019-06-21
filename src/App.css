@@ -99,7 +99,6 @@ border-radius: 8px;
   /*border-bottom: 1px solid #ddd;para borde solo horizontal*/
 }
 
-
 .th:hover {background-color: black ;color:  lightblue;}/*selector de <tr> para resaltar filas,encabezados de la tabla en el mouse:*/
 .tr:nth-child(even) {background-color: white}
 
