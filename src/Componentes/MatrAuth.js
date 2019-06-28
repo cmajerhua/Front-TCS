@@ -15,12 +15,14 @@ class MatrAuth extends React.Component {
             codigo: this.props.params.codigoAlumno,
             datosAmA: [],
             cab: [],
-            alumno:[],
+            alumno: [],
+            historias: [],
         }
         this.cab = '';
         this.datosAmA = '';
-        this.alumno='';
-        
+        this.alumno = '';
+        this.historias = '';
+
     }
     Regresar(e) {
         browserHistory.push('/');
@@ -56,7 +58,7 @@ class MatrAuth extends React.Component {
             .catch(error => {
                 console.error(error)
             });
-            fetch(CONFIG + 'alumnoprograma/buscarc/' + this.state.codigo)
+        fetch(CONFIG + 'alumnoprograma/buscarc/' + this.state.codigo)
             .then((response) => {
                 return response.json()
             }).then((alu) => {
@@ -70,21 +72,46 @@ class MatrAuth extends React.Component {
             .catch(error => {
                 console.error(error)
             });
+        fetch(CONFIG + 'alumnomatriculaautorizacionhistoria/buscar/' + this.state.codigo)
+            .then((response) => {
+                return response.json()
+            }).then((hist) => {
+
+
+                console.log("datos de alumno");
+                console.log(hist);
+                this.setState({ historias: hist })
+
+            })
+            .catch(error => {
+                console.error(error)
+            });
 
     }
 
-    
+
     render() {
         const datos = this.state.datosAmA.map((datoAmA, i) => {
             return (
                 <AuthRow importe={datoAmA.importe} n_autorizacion={datoAmA.n_autorizacion} fecha_emision={datoAmA.fecha_emision}
-                penalidad={datoAmA.penalidad} amortizacion={datoAmA.amortizacion} saldo={datoAmA.saldo} fecha_vencimieto={datoAmA.fecha_vencimieto}
-                autorizacion_estado={datoAmA.autorizacion_estado}/>
+                    penalidad={datoAmA.penalidad} amortizacion={datoAmA.amortizacion} saldo={datoAmA.saldo} fecha_vencimieto={datoAmA.fecha_vencimieto}
+                    autorizacion_estado={datoAmA.autorizacion_estado} />
             )
+        })
+        const historias = this.state.historias.map((historia, i) => {
+            return (
+                        <tr key={i}>
+                            <td className="td">{historia.cod_semestre}</td>
+                            <td className="td">{historia.ciclo}</td>
+                            <td className="td">{historia.creditos}</td>
+                            <td className="td">{historia.sigla_programa}</td>
+                        </tr>
+            )
+
         })
         return (
             <div>
-                <h3>Estado de matricula por autorizacion<ul id="nav-mobile" class="right  hide-on-med-and-down"><li><a class="seleccionar" onClick={this.Regresar.bind(this)}>Regresar<i class="material-icons right">reply</i></a></li></ul></h3>
+                <h3>Estado de matricula por autorizacion<ul id="nav-mobile" className="right  hide-on-med-and-down"><li><a className="seleccionar" onClick={this.Regresar.bind(this)}>Regresar<i className="material-icons right">reply</i></a></li></ul></h3>
                 <div className="SplitPane row">
                     <div className="col-xs-3">
                         <div className="Alumno">
@@ -110,18 +137,12 @@ class MatrAuth extends React.Component {
                                         <tr>
                                             <th className="th">SEMESTRE</th>
                                             <th className="th">CICLO</th>
-                                            <th className="th">N° REPITENCIAS</th>
-                                            <th className="th">IMPORTE</th>
+                                            <th className="th">CREDITOS</th>
+                                            <th className="th">PROGRAMA</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td className="td">{this.state.cab.semestre}</td>
-                                            <td className="td">{this.state.cab.ciclo}</td>
-                                            <td className="td">no especificado</td>
-                                            <td className="td">no especificado</td>
-
-                                        </tr>
+                                    {historias}
                                     </tbody>
                                 </table>
                             </div>
@@ -136,9 +157,9 @@ class MatrAuth extends React.Component {
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td className="td">GTI</td>
-                                            <td className="td">GIC</td>
-                                            <td className="td">GIC</td>
+                                            <td className="td">no especificado</td>
+                                            <td className="td">no especificado</td>
+                                            <td className="td">no especificado</td>
 
                                         </tr>
                                     </tbody>
@@ -175,7 +196,7 @@ class MatrAuth extends React.Component {
                     </div>
                 </div>
                 <footer>
-                    <div class="row center-xs centrar color">Proyecto SIGAP © 2019</div>
+                    <div className="row center-xs centrar color">Proyecto SIGAP © 2019</div>
                 </footer>
             </div >
         );
