@@ -17,12 +17,13 @@ class MatrAuth extends React.Component {
             cab: [],
             alumno: [],
             historias: [],
+            obtenerDesc: [,]
         }
         this.cab = '';
         this.datosAmA = '';
         this.alumno = '';
         this.historias = '';
-
+        this.obtenerDesc = '';
     }
     Regresar(e) {
         browserHistory.push('/');
@@ -78,7 +79,7 @@ class MatrAuth extends React.Component {
             }).then((hist) => {
 
 
-                console.log("datos de alumno");
+                console.log("datos de alumno-historias");
                 console.log(hist);
                 this.setState({ historias: hist })
 
@@ -86,6 +87,23 @@ class MatrAuth extends React.Component {
             .catch(error => {
                 console.error(error)
             });
+
+        fetch(CONFIG + 'conceptodescuento/obtener/' + this.state.codigo)
+            .then((response) => {
+                return response.json()
+            }).then((descuento) => {
+
+
+                console.log("obtener datos del descuento");
+                console.log(descuento);
+                this.setState({ obtenerDesc: descuento })
+
+            })
+            .catch(error => {
+                console.error(error)
+            });
+
+
 
     }
 
@@ -100,15 +118,33 @@ class MatrAuth extends React.Component {
         })
         const historias = this.state.historias.map((historia, i) => {
             return (
-                        <tr key={i}>
-                            <td className="td">{historia.cod_semestre}</td>
-                            <td className="td">{historia.ciclo}</td>
-                            <td className="td">{historia.creditos}</td>
-                            <td className="td">{historia.sigla_programa}</td>
-                        </tr>
+                <tr key={i}>
+                    <td className="td">{historia.cod_semestre}</td>
+                    <td className="td">{historia.ciclo}</td>
+                    <td className="td">{historia.creditos}</td>
+                    <td className="td">{historia.sigla_programa}</td>
+                </tr>
             )
 
         })
+
+        const descuento = this.state.obtenerDesc.map((obtenerDesc, i) => {
+            return (
+                <tr key={i}>
+                    <td className="td">{obtenerDesc.concepto}</td>
+                    <td className="td">{obtenerDesc.descripcion_min}</td>
+                    <td className="td">{obtenerDesc.credito}</td>
+                    <td className="td">{obtenerDesc.importe}</td>
+                    <td className="td">{obtenerDesc.descuento}</td>
+                    <td className="td">{obtenerDesc.importe_final}</td>                    
+                    <td className="td">{obtenerDesc.cuotas}</td>
+
+                </tr>
+            )
+
+        })
+
+
         return (
             <div>
                 <h3>Estado de matricula por autorizacion<ul id="nav-mobile" className="right  hide-on-med-and-down"><li><a className="seleccionar" onClick={this.Regresar.bind(this)}>Regresar<i className="material-icons right">reply</i></a></li></ul></h3>
@@ -142,7 +178,7 @@ class MatrAuth extends React.Component {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    {historias}
+                                        {historias}
                                     </tbody>
                                 </table>
                             </div>
@@ -150,18 +186,17 @@ class MatrAuth extends React.Component {
                                 <table className="table-small">
                                     <thead>
                                         <tr>
-                                            <th className="th">MUPG</th>
-                                            <th className="th">MEPG</th>
-                                            <th className="th">E</th>
+                                            <th className="th">CONCEPTO</th>
+                                            <th className="th">DESCRIPCION</th>
+                                            <th className="th">CRÉDITO</th>
+                                            <th className="th">IMPORTE</th>
+                                            <th className="th">DESCUENTO</th>
+                                            <th className="th">IMPORTE FINAL</th>
+                                            <th className="th">CUOTAS</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td className="td">no especificado</td>
-                                            <td className="td">no especificado</td>
-                                            <td className="td">no especificado</td>
-
-                                        </tr>
+                                        {descuento}
                                     </tbody>
                                 </table>
                             </div>
