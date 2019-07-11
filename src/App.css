@@ -502,3 +502,21 @@ button.delete:hover{
 #main {
   transition: margin-right .5s;
 }
+
+.tabla1--table {
+  display: inherit;
+  width: 390px;
+  height: 350px;       /* Just for the demo          */
+  overflow-y: auto;    /* Trigger vertical scroll    */
+  overflow-x: hidden;  /* Hide the horizontal scroll */
+}
+.tabla2--table {
+    display: inherit;
+    width: 660px;
+    height: 350px;       /* Just for the demo          */
+    overflow-y: auto;    /* Trigger vertical scroll    */
+    overflow-x: hidden;  /* Hide the horizontal scroll */
+    border-collapse: collapse;
+}
+
+

@@ -168,7 +168,7 @@ class MatrAuth extends React.Component {
                     <div className="col-xs-9">
                         <div className="SplitPane row">
                             <div className="inline col-xs-5">
-                                <table className="table-small">
+                                <table className="tabla1--table">
                                     <thead>
                                         <tr>
                                             <th className="th">SEMESTRE</th>
@@ -182,8 +182,8 @@ class MatrAuth extends React.Component {
                                     </tbody>
                                 </table>
                             </div>
-                            <div className="inline col-xs-4">
-                                <table className="table-small">
+                            <div className="inline col-xs-3">
+                                <table className="tabla2--table">
                                     <thead>
                                         <tr>
                                             <th className="th">CONCEPTO</th>
@@ -195,6 +195,7 @@ class MatrAuth extends React.Component {
                                             <th className="th">CUOTAS</th>
                                         </tr>
                                     </thead>
+                                    
                                     <tbody>
                                         {descuento}
                                     </tbody>
@@ -238,4 +239,5 @@ class MatrAuth extends React.Component {
     }
 
 }
+
 export default MatrAuth
